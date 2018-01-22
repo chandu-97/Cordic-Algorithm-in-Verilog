@@ -1,24 +1,4 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 10/06/2017 10:19:48 AM
-// Design Name: 
-// Module Name: micro_to_angle
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
-
 
 module micro_to_angle #(parameter cordic_steps=16,angle_width=16)(
     input clk,
@@ -49,7 +29,6 @@ module micro_to_angle #(parameter cordic_steps=16,angle_width=16)(
     assign atan[14] = 20'h00000;
     assign atan[15] = 20'h00000;
     
-//    reg [counter_width:0]counter;
     wire signed [angle_width-1:0]angle_temp;
     
     assign angle_temp = (micro_rotation[0]?atan[0]:$signed(-atan[0])) + (micro_rotation[1]?atan[1]:$signed(-atan[1])) + (micro_rotation[2]?atan[2]:$signed(-atan[2])) + 
@@ -85,59 +64,4 @@ module micro_to_angle #(parameter cordic_steps=16,angle_width=16)(
             end
         end
     end
-
-//    always @(posedge clk) begin
-//        if (~nreset) begin
-//            angle <= {angle_width{1'b0}};
-//            counter <= {counter_width{1'b0}};
-//            done <= 1'b0;
-//        end
-//        else begin
-//            if (enable) begin
-//                if (counter=={counter_width{1'b0}}) begin
-//                    angle <= {angle_width{1'b0}};
-//                    counter <= counter + 1;
-//                end
-//                else begin
-//                    if (counter<=cordic_steps) begin
-//                        if (micro_rotation[counter-1]) begin
-//                            angle <= $signed(angle) + $signed(atan[counter-1]);
-//                        end
-//                        else begin
-//                            angle <= $signed(angle) + $signed(-atan[counter-1]);
-//                        end
-//                        counter <= counter + 1;
-//                    end 
-//                    else begin
-//                        if (counter==cordic_steps+1) begin
-//                            if (quadrant <= 2'b11) begin
-//                                angle <= $signed(angle) - $signed(16'h8000);
-//                            end
-//                            else if (quadrant <= 2'b10) begin
-//                                angle <= $signed(16'h8000) + $signed(-angle);
-//                            end
-//                            else if (quadrant <= 2'b01) begin
-//                                angle <= $signed(-angle);
-//                            end
-//                            else begin
-//                                angle <= angle;
-//                            end
-//                            counter <= counter + 1;
-//                        end
-//                        else if (counter==cordic_steps+2) begin
-//                            counter <= {counter_width{1'b0}};
-//                            angle_out <= angle;
-//                            done <= 1'b1;
-//                        end
-//                    end
-//                end
-//            end
-//            else begin
-//                angle <= {angle_width{1'b0}};
-//                counter <= {counter_width{1'b0}};
-//                done <= 1'b0;
-//            end
-//        end
-//    end
-    
 endmodule
