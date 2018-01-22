@@ -1,24 +1,4 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 10/06/2017 08:14:43 PM
-// Design Name: 
-// Module Name: assign_initial_rotation
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
-
 
 module stages_rotation #(parameter data_width=16,angle_width=16,cordic_steps=16,stage_number=1)(
     input clk,
@@ -59,7 +39,6 @@ module stages_rotation #(parameter data_width=16,angle_width=16,cordic_steps=16,
     assign atan[15] = 20'h00000;
 
     reg signed [data_width-1:0]x_temp_out,y_temp_out;
-    //reg [angle_width-1:0]temp_angle_out;
     
     assign x_vec_out = x_temp_out;
     assign y_vec_out = y_temp_out;
@@ -69,7 +48,6 @@ module stages_rotation #(parameter data_width=16,angle_width=16,cordic_steps=16,
             x_temp_out <= $signed({data_width{1'b0}});
             y_temp_out <= $signed({data_width{1'b0}});
 				angle_out <= 0;
-            //temp_angle_out <= {angle_width{1'b0}};
             done <= 1'b0;
         end
         else begin
@@ -91,7 +69,6 @@ module stages_rotation #(parameter data_width=16,angle_width=16,cordic_steps=16,
                 x_temp_out <= $signed({data_width{1'b0}});
                 y_temp_out <= $signed({data_width{1'b0}});
 					 angle_out <= 0;
-                //temp_angle_out <= {angle_width{1'b0}};
                 done <= 1'b0;
             end
         end
