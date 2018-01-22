@@ -1,24 +1,4 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 10/06/2017 07:25:47 AM
-// Design Name: 
-// Module Name: cordic_vectoring_top
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
-
 
 module cordic_vectoring_top #(parameter data_width=16,cordic_steps=16,angle_width=20)(
     input clk,
@@ -120,25 +100,13 @@ module cordic_vectoring_top #(parameter data_width=16,cordic_steps=16,angle_widt
     always @(posedge clk) begin
         if (~nreset) begin
             done <= 1'b0;
-            //counter <= 1'b0;
         end
         else begin
             if (done_angle_conversion) begin
-                //if (~counter) begin
                     temp_x_vec_out <= x[cordic_steps]*(16'b0000000010011011);
-                    //counter <= 1'b1;
-                    //done <= 1'b0;
-                //end
-                //else begin
-                    //x_vec_out <= temp_x_vec_out[data_width+7:8];
                     angle <= temp_angle;
                     done <= 1'b1;
-                    //counter <= 1'b0;
-                //end
             end
-	    //else begin
-		//counter <= 1'b0;
-		//end
         end
     end
 endmodule
