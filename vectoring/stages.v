@@ -1,24 +1,4 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 10/06/2017 07:56:25 AM
-// Design Name: 
-// Module Name: stages
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
-
 
 module stages #(parameter rotation_stage = 1,data_width=16,cordic_steps=16)(
     input clk,
@@ -55,13 +35,11 @@ module stages #(parameter rotation_stage = 1,data_width=16,cordic_steps=16)(
                 if (!y_vec_in[data_width-1]) begin
                     x_temp_out <= x_vec_in + (y_vec_in>>>rotation_stage);
                     y_temp_out <= y_vec_in - (x_vec_in>>>rotation_stage);
-//                    micro_rotation_out <= 1'b1;
                     micro_rotation_out <= {{(cordic_steps-1-rotation_stage){1'b0}},1'b1,micro_rotation_in[rotation_stage-1:0]};
                 end
                 else begin
                     x_temp_out <= x_vec_in - (y_vec_in>>>rotation_stage);
                     y_temp_out <= y_vec_in + (x_vec_in>>>rotation_stage);
-//                    micro_rotation_out <= 1'b0;
                     micro_rotation_out <= {{(cordic_steps-1-rotation_stage){1'b0}},1'b0,micro_rotation_in[rotation_stage-1:0]};
                 end
                 quad_out <= quad_in;
