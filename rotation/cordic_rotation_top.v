@@ -1,24 +1,4 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 10/06/2017 08:05:26 PM
-// Design Name: 
-// Module Name: cordic_rotation_top
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
-
 
 module cordic_rotation_top#(parameter data_width=16,cordic_steps=16,angle_width=20)(
     input clk,
@@ -54,32 +34,7 @@ module cordic_rotation_top#(parameter data_width=16,cordic_steps=16,angle_width=
 		end
 		else begin
 			if (enable) begin
-				temp_enable <= 1'b1;
-//				if ($signed(target_angle)>=20'h04000) begin
-//					if ($signed(target_angle)>=20'h08000) begin
-//						temp_target_angle <= $signed(target_angle) + $signed(-20'h08000);
-//						temp_x_vec_in <= $signed(-x_vec_in);
-//						temp_y_vec_in <= $signed(-y_vec_in);
-//					end
-//					else begin
-//						temp_target_angle <= $signed(target_angle) + $signed(-20'h04000);
-//						temp_x_vec_in <= $signed(y_vec_in);
-//						temp_y_vec_in <= $signed(-x_vec_in);
-//					end
-//				end
-//				else if($signed(target_angle)<=$signed(-20'h04000)) begin
-//					if ($signed(target_angle)<=$signed(-20'h08000)) begin
-//						temp_target_angle <= $signed(target_angle) + $signed(20'h08000);
-//						temp_x_vec_in <= $signed(-x_vec_in);
-//						temp_y_vec_in <= $signed(-y_vec_in);
-//					end
-//					else begin
-//						temp_target_angle <= $signed(target_angle) + $signed(20'h04000);
-//						temp_x_vec_in <= $signed(-y_vec_in);
-//						temp_y_vec_in <= $signed(x_vec_in);
-//					end
-//				end
-				
+				temp_enable <= 1'b1;				
 				if ($signed(target_angle)>=$signed(20'h04000)) begin
 				    if ($signed(target_angle)>=$signed(20'h08000)) begin
 				        if ($signed(target_angle)>=$signed(20'h0C000)) begin
@@ -138,8 +93,6 @@ module cordic_rotation_top#(parameter data_width=16,cordic_steps=16,angle_width=
     assign y[0] = temp_y_vec_in;
     assign angle_stages[0] = {angle_width{1'b0}};
     assign temp_target_angle[0] = temp_t_ang;
-    //assign x_vec_out = x[cordic_steps];
-    //assign y_vec_out = y[cordic_steps];
     
     genvar i;
     
@@ -203,25 +156,12 @@ module cordic_rotation_top#(parameter data_width=16,cordic_steps=16,angle_width=
 	 always @(posedge clk) begin
         if (~nreset) begin
             done <= 1'b0;
-            //counter <= 1'b0;
-				//x_vec_out <= {data_width{1'b0}};
-				//y_vec_out <= {data_width{1'b0}};
         end
         else begin
             if (done_last_stage) begin
-                //if (~counter) begin
                     temp_x_vec_out <= $signed(x[cordic_steps-1])*$signed(16'b0000000010011011);
                     temp_y_vec_out <= $signed(y[cordic_steps-1])*$signed(16'b0000000010011011);
-
-                    //counter <= 1'b1;
-                    //done <= 1'b0;
-                //end
-                //else begin
-                    //x_vec_out <= temp_x_vec_out[data_width+7:8];
-                    //y_vec_out <= temp_y_vec_out[data_width+7:8];
                     done <= 1'b1;
-                    //counter <= 1'b0;
-                //end
             end
         end
     end
